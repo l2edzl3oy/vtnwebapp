@@ -1,0 +1,80 @@
+{% extends 'AppBundle::admin.html.twig' %}
+
+{% block accordian %}
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">1. Flow Condition(s) List</a>
+            </h4>
+        </div>
+        <div id="collapseOne" class="panel-collapse collapse in">
+            <div class="panel-body">
+                <h4>{{ dump(flowconditions) }}</h4>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">2. Flow Filter(s) List</a>
+            </h4>
+        </div>
+        <div id="collapseTwo" class="panel-collapse collapse">
+            <div class="panel-body">
+                <h4>{{ dump(flowfilters) }}</h4>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block tabs %}
+    <li class="dropdown">
+        <a data-toggle="dropdown" class="dropdown-toggle" href="#">Flow Condition<b class="caret"></b></a>
+        <ul class="dropdown-menu">
+            <li><a data-toggle="tab" href="#createFlowCond">Put</a></li>
+            <li><a data-toggle="tab" href="#deleteFlowCond">Delete</a></li>
+        </ul>
+    </li>
+    <li class="dropdown">
+        <a data-toggle="dropdown" class="dropdown-toggle" href="#">Flow Filter(s)<b class="caret"></b></a>
+        <ul class="dropdown-menu">
+            <li><a data-toggle="tab" href="#getFlowFilters">Get</a></li>
+            <li><a data-toggle="tab" href="#createFlowFilter">Put</a></li>
+            <li><a data-toggle="tab" href="#deleteFlowFilter">Delete</a></li>
+        </ul>
+    </li>
+{% endblock %}
+
+{% block tabscontent %}
+    <div id="createFlowCond" class="tab-pane fade in active">
+        <p>{{ form_start(createFlowCondForm) }}
+            {{ form_widget(createFlowCondForm) }}
+            {{ form_end(createFlowCondForm) }}
+            {# {{ dump(render(controller('AppBundle:Forms:createForm' ))) }} #}
+        </p>
+    </div>
+    <div id="deleteFlowCond" class="tab-pane fade">
+        <p>{{ form_start(deleteFlowCondForm) }}
+            {{ form_widget(deleteFlowCondForm) }}
+            {{ form_end(deleteFlowCondForm) }}
+        </p>
+    </div>
+    <div id="getFlowFilters" class="tab-pane fade">
+        <p>{{ form_start(getFlowFiltersForm) }}
+            {{ form_widget(getFlowFiltersForm) }}
+            {{ form_end(getFlowFiltersForm) }}
+        </p>
+    </div>
+    <div id="createFlowFilter" class="tab-pane fade">
+        <p>{{ form_start(putFlowFilterForm) }}
+            {{ form_widget(putFlowFilterForm) }}
+            {{ form_end(putFlowFilterForm) }}
+        </p>
+    </div>
+    <div id="deleteFlowFilter" class="tab-pane fade">
+        <p>{{ form_start(deleteFlowFilterForm) }}
+            {{ form_widget(deleteFlowFilterForm) }}
+            {{ form_end(deleteFlowFilterForm) }}
+        </p>
+    </div>
+{% endblock %}

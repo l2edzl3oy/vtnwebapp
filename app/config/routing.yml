@@ -1,0 +1,11 @@
+webservice_user:
+    resource: "@WebserviceUserBundle/Resources/config/routing.yml"
+    prefix:   /
+
+app:
+    resource: @AppBundle/Controller/
+    type:     annotation
+    
+appbundle_website:
+    resource: "@AppBundle/Resources/config/routing.yml"
+    prefix:   /

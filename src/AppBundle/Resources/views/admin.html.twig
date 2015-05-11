@@ -1,0 +1,186 @@
+{% extends 'AppBundle::layout.html.twig' %}
+
+{% block content %}
+
+<nav class="navbar navbar-default navbar-inverse navbar-fixed-top" role="navigation">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle"
+                    data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" {# href="{{ path('admin') }}" #}>VTNWebApp</a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            {{ knp_menu_render('AppBundle:Builder:mainMenu', { 'style': 'navbar' }) }}
+        </div>
+    </div>
+</nav>
+            
+
+<div class="container-fluid" style="padding-top: 70px">
+    <div class="col-md-6" style="padding-bottom: 20px">
+        <div id="accordion" class="panel-group">
+        {% block accordian %}
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">1. Tenant</a>
+                    </h4>
+                </div>
+                <div id="collapseOne" class="panel-collapse collapse in">
+                    <div class="panel-body">
+                        <h4>Username: <small>{{ username }}</small></h4>
+                        <h4>Tenant ID: <small>{{ tenantID }}</small></h4>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">2. Virtual Tenant Network(s)</a>
+                    </h4>
+                </div>
+                <div id="collapseTwo" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <p>{{ dump(vtns) }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">3. vBridge(s)</a>
+                    </h4>
+                </div>
+                <div id="collapseThree" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <p>{{ dump(vBridges) }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour">4. vBridge Inteface(s)</a>
+                    </h4>
+                </div>
+                <div id="collapseFour" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <p>{{ dump(vBridgeInterfaces) }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseFive">5. vBridge Inteface Mapping(s)</a>
+                    </h4>
+                </div>
+                <div id="collapseFive" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <p>{{ dump(portmaps) }}</p>
+                    </div>
+                </div>
+            </div>
+        {% endblock %}
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <ul class="nav nav-tabs">
+        {% block tabs %}
+            <li class="dropdown">
+                <a data-toggle="dropdown" class="dropdown-toggle" href="#">VTN<b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li><a data-toggle="tab" href="#createVTN">Create</a></li>
+                    <li><a data-toggle="tab" href="#deleteVTN">Delete</a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a data-toggle="dropdown" class="dropdown-toggle" href="#">vBridge<b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li><a data-toggle="tab" href="#createVBridge">Create</a></li>
+                    <li><a data-toggle="tab" href="#deleteVBridge">Delete</a></li>
+                </ul>
+            </li>
+            {# <li><a data-toggle="tab" href="#sectionA">Section A</a></li>
+            <li><a data-toggle="tab" href="#sectionB">Section B</a></li> #}
+            <li class="dropdown">
+                <a data-toggle="dropdown" class="dropdown-toggle" href="#">vBridge Interface<b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li><a data-toggle="tab" href="#createIf">Create</a></li>
+                    <li><a data-toggle="tab" href="#deleteIf">Delete</a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a data-toggle="dropdown" class="dropdown-toggle" href="#">vBridge Interface Mapping<b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li><a data-toggle="tab" href="#createIfMap">Create</a></li>
+                    <li><a data-toggle="tab" href="#deleteIfMap">Delete</a></li>
+                </ul>
+            </li>
+        {% endblock %}
+        </ul>
+        <div class="tab-content">
+        {% block tabscontent %}
+            <div id="createVTN" class="tab-pane fade in active">
+                <p>{{ form_start(createVTNForm) }}
+                    {{ form_widget(createVTNForm) }}
+                    {{ form_end(createVTNForm) }}
+                    {# {{ dump(render(controller('AppBundle:Forms:createForm' ))) }} #}
+                </p>
+            </div>
+            <div id="deleteVTN" class="tab-pane fade">
+                <p>{{ form_start(deleteVTNForm) }}
+                    {{ form_widget(deleteVTNForm) }}
+                    {{ form_end(deleteVTNForm) }}
+                </p>
+            </div>
+            <div id="createVBridge" class="tab-pane fade">
+                <p>{{ form_start(createVBridgeForm) }}
+                    {{ form_widget(createVBridgeForm) }}
+                    {{ form_end(createVBridgeForm) }}
+                </p>
+            </div>
+            <div id="deleteVBridge" class="tab-pane fade">
+                <p>{{ form_start(deleteVBridgeForm) }}
+                    {{ form_widget(deleteVBridgeForm) }}
+                    {{ form_end(deleteVBridgeForm) }}
+                </p>
+            </div>
+            <div id="createIf" class="tab-pane fade">
+                <p>{{ form_start(createVBridgeIfForm) }}
+                    {{ form_widget(createVBridgeIfForm) }}
+                    {{ form_end(createVBridgeIfForm) }}
+                </p>
+            </div>
+            <div id="deleteIf" class="tab-pane fade">
+                <p>{{ form_start(deleteVBridgeIfForm) }}
+                    {{ form_widget(deleteVBridgeIfForm) }}
+                    {{ form_end(deleteVBridgeIfForm) }}
+                </p>
+            </div>
+            <div id="createIfMap" class="tab-pane fade">
+                <p>{{ form_start(createPortMapForm) }}
+                    {{ form_widget(createPortMapForm) }}
+                    {{ form_end(createPortMapForm) }}
+                </p>
+            </div>
+            <div id="deleteIfMap" class="tab-pane fade">
+                <p>{{ form_start(deletePortMapForm) }}
+                    {{ form_widget(deletePortMapForm) }}
+                    {{ form_end(deletePortMapForm) }}
+                </p>
+            </div>
+        {% endblock %}
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}
